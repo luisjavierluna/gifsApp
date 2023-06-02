@@ -4,6 +4,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class GifsService {
+
+
+  private apiKey : string = "https://sp-api20230124162228.azurewebsites.net/api/products/" // En la clase utiliza una api de este sitiohttps://developers.giphy.com/ , pero se tiene que crear cuenta
   private _historial: string[] = []
 
   get historial() {
