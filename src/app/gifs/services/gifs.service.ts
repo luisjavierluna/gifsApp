@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -6,13 +7,14 @@ import { Injectable } from '@angular/core';
 export class GifsService {
 
 
-  private apiKey : string = "https://sp-api20230124162228.azurewebsites.net/api/products/" // En la clase utiliza una api de este sitiohttps://developers.giphy.com/ , pero se tiene que crear cuenta
+  private apiKey : string = 'https://localhost:7001/api/products/'
   private _historial: string[] = []
 
   get historial() {
-    
     return [...this._historial]
   }
+
+  constructor(private http: HttpClient) {}
 
   buscarGifs(query: string = '') {
     query = query.trim().toLocaleLowerCase();
@@ -22,7 +24,9 @@ export class GifsService {
       this._historial = this._historial.splice(0, 10)
     }
     
-
-    console.log(this._historial)
+    this.http.get('https://localhost:7001/api/products/productPage/ella')
+      .subscribe( (resp: any) => {
+        console.log(resp)
+      })
   }
 }
