@@ -10,6 +10,8 @@ export class GifsService {
   private apiKey : string = 'https://localhost:7001/api/products/'
   private _historial: string[] = []
 
+  public resultados: any[] = []
+
   get historial() {
     return [...this._historial]
   }
@@ -24,9 +26,11 @@ export class GifsService {
       this._historial = this._historial.splice(0, 10)
     }
     
-    this.http.get('https://localhost:7001/api/products/productPage/ella')
+    this.http.get<any[]>(`https://localhost:7001/api/products/productPage/${query}`)
       .subscribe( (resp: any) => {
         console.log(resp)
+        this.resultados = [];
+        this.resultados.push(resp)
       })
   }
 }
