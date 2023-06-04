@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SearchGifsResponse } from '../Interface/gifs.interface';
 
@@ -7,9 +7,9 @@ import { SearchGifsResponse } from '../Interface/gifs.interface';
 })
 export class GifsService {
 
-  private apiKey : string = 'https://localhost:7001/api/products/'
+  private servicioUrl : string = 'https://localhost:7001/api/products/productPage'
     // private apiKey : string = 'https://sp-api20230124162228.azurewebsites.net/api/products/'
-  private _historial: string[] = []
+  private _historial  : string[] = []
 
   public resultados: SearchGifsResponse[] = []
 
@@ -32,8 +32,13 @@ export class GifsService {
       localStorage.setItem('historial', JSON.stringify( this._historial ))
 
     }
+
+    // const params = new HttpParams()
+    //   .set('q', query)
+    //   .set('api_key', this.apiKey)
+    //   .set('limit', '10')
     
-    this.http.get<SearchGifsResponse>(`https://localhost:7001/api/products/productPage/${query}`)
+    this.http.get<SearchGifsResponse>(`${this.servicioUrl}/${query}`)
       .subscribe( (resp ) => {
         console.log(resp)
         this.resultados = [];
